@@ -6,7 +6,7 @@ namespace SchoolApi.Domain.Entities
     public abstract class BaseEntity
     {
         [Key]
-        public Guid Id => Guid.NewGuid();
+        public Guid Id { get; set; }
 
         private DateTime? _dateCreated;
         public DateTime? DateCreated 
@@ -17,5 +17,10 @@ namespace SchoolApi.Domain.Entities
 
         public DateTime? DateUpdated { get; set; }
         
+        public BaseEntity()
+        {
+            Id = Guid.NewGuid();
+        }
+
     }
 }
