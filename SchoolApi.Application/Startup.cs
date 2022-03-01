@@ -11,20 +11,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SchoolApi.CrossCutting.DependencyInjection;
+using SchoolApi.Data.Transactions;
 
 namespace Application
 {
     public class Startup
     {
+        private readonly IConfiguration _config;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _config = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDataDependecies(_config);
+            services.AddServicesDependecies(_config);
+            services.AddWebDependecies(_config);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -34,6 +40,15 @@ namespace Application
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+
+                var unitOfWork = (IUow)context.RequestServices.GetService(typeof(IUow));
+                await unitOfWork.Commit();
+                unitOfWork.Dispose();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
