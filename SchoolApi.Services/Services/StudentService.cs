@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using SchoolApi.Data.Transactions;
 using SchoolApi.Domain.DTO.Student;
 using SchoolApi.Services.Interfaces;
