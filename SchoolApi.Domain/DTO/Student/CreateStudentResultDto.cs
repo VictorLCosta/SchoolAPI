@@ -1,4 +1,5 @@
 using System;
+using SchoolApi.Domain.ValueObjects;
 
 namespace SchoolApi.Domain.DTO.Student
 {
@@ -6,7 +7,7 @@ namespace SchoolApi.Domain.DTO.Student
     {
         public Guid Id { get; set; }
         public string RA { get; set; }
-        public string Email { get; set; }
+        public Email Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }

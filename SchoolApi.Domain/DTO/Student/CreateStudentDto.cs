@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using SchoolApi.Domain.ValueObjects;
 
 namespace SchoolApi.Domain.DTO.Student
 {
@@ -10,7 +11,7 @@ namespace SchoolApi.Domain.DTO.Student
         public string RA { get; set; }
 
         [Required(ErrorMessage = "Informe o email")]
-        public string Email { get; set; }
+        public Email Email { get; set; }
 
         [Required(ErrorMessage = "Informe o nome")]
         public string FirstName { get; set; }
